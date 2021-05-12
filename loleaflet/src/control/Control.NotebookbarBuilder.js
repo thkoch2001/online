@@ -38,6 +38,7 @@ L.Control.NotebookbarBuilder = L.Control.JSDialogBuilder.extend({
 		this._toolitemHandlers['.uno:InsertGraphic'] = this._insertGraphicControl;
 		this._toolitemHandlers['.uno:InsertAnnotation'] = this._insertAnnotationControl;
 		this._toolitemHandlers['.uno:LineSpacing'] = this._lineSpacingControl;
+		this._toolitemHandlers['.uno:CharSpacing'] = this._CharSpacing;
 		this._toolitemHandlers['.uno:CharmapControl'] = this._symbolControl;
 		this._toolitemHandlers['.uno:Cut'] = this._clipboardButtonControl;
 		this._toolitemHandlers['.uno:Copy'] = this._clipboardButtonControl;
@@ -623,6 +624,38 @@ L.Control.NotebookbarBuilder = L.Control.JSDialogBuilder.extend({
 				builder.map._clip.filterExecCopyPaste(data.command);
 			});
 		}
+	},
+
+	_CharSpacing: function(parentContainer, data, builder) {
+		var options = {hasDropdownArrow: true};
+		var control = builder._unoToolButton(parentContainer, data, builder, options);
+
+		$(control.container).unbind('click');
+		$(control.container).click(function () {
+			var isChecked = function(command) {
+				var items = builder.map['stateChangeHandler'];
+				var val = items.getItemValue(command);
+				if (val && (val === 'true' || val === true))
+					return true;
+				else
+					return false;
+			};
+
+			$(control.container).w2menu({
+				items: [
+					{id: 'spacepara1', img: 'spacepara1', text: _UNO('.uno:SpacePara1'), uno: 'SpacePara1', checked: isChecked('.uno:SpacePara1')},
+					{id: 'spacepara15', img: 'spacepara15', text: _UNO('.uno:SpacePara15'), uno: 'SpacePara15', checked: isChecked('.uno:SpacePara15')},
+					{id: 'spacepara2', img: 'spacepara2', text: _UNO('.uno:SpacePara2'), uno: 'SpacePara2', checked: isChecked('.uno:SpacePara2')},
+					{type: 'break'},
+					{id: 'paraspaceincrease', img: 'paraspaceincrease', text: _UNO('.uno:ParaspaceIncrease'), uno: 'ParaspaceIncrease'},
+					{id: 'paraspacedecrease', img: 'paraspacedecrease', text: _UNO('.uno:ParaspaceDecrease'), uno: 'ParaspaceDecrease'}
+				],
+				type: 'menu',
+				onSelect: function (event) {
+					builder.map.sendUnoCommand('.uno:' + event.item.uno);
+				}
+			});
+		});
 	},
 
 	_lineSpacingControl: function(parentContainer, data, builder) {
