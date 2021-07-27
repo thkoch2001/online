@@ -1347,9 +1347,8 @@ L.Control.JSDialogBuilder = L.Control.extend({
 			image.src = data.image;
 		}
 
-		var text = L.DomUtil.create('span', '', pushbutton);
 		var customText = builder._customPushButtonTextForId(data.id);
-		text.innerHTML = customText !== '' ? customText : builder._cleanText(data.text);
+		pushbutton.innerHTML = customText !== '' ? customText : builder._cleanText(data.text);
 
 		if (data.enabled === 'false' || data.enabled === false)
 			$(pushbutton).prop('disabled', true);
