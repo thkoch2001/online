@@ -969,6 +969,11 @@ input[type='checkbox']:checked.autofilter, .jsdialog input[type='checkbox']:chec
 	text-align: center;
 }
 
+.snackbar.jsdialog-container #label,
+.snackbar.jsdialog-container #label-no-action {
+	padding: 2px 8px;
+}
+
 #mobile-wizard.popup.snackbar #button,
 .snackbar.jsdialog-container #button.ui-pushbutton.jsdialog {
 	padding-right: 8px;
