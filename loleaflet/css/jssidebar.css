@@ -108,3 +108,8 @@ td.jsdialog .jsdialog.cell.sidebar {
 .sidebar #fontsizecombobox select {
 	margin: 0;
 }
+
+.ui-expander.jsdialog.sidebar .ui-expander-icon-right, .ui-expander.jsdialog.sidebar .ui-expander-icon-right * {
+	width: 18px;
+	height: 18px;
+}
